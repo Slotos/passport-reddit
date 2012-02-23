@@ -1,7 +1,7 @@
 # Passport-Yammer
 
 [Passport](https://github.com/jaredhanson/passport) strategy for authenticating
-with Yammer using the OAuth 2.0 API.
+with [Yammer](https://www.yammer.com/) using the OAuth 2.0 API.
 
 ## Installation
 
@@ -53,6 +53,8 @@ application:
 ## Examples
 
 For a complete, working example, refer to the [login example](https://github.com/jaredhanson/passport-yammer/tree/master/examples/login).
+
+[![Build Status](https://secure.travis-ci.org/jaredhanson/passport-yammer.png)](http://travis-ci.org/jaredhanson/passport-yammer)
 
 ## Tests
 

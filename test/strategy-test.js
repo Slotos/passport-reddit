@@ -105,6 +105,12 @@ vows.describe('YammerStrategy').addBatch({
         assert.equal(profile.id, '4022983');
         assert.equal(profile.displayName, 'Ilya Yakubovich');
       },
+      'should set raw property' : function(err, profile) {
+        assert.isString(profile._raw);
+      },
+      'should set json property' : function(err, profile) {
+        assert.isObject(profile._json);
+      },
     },
   },
   
