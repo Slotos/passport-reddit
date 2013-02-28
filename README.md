@@ -9,6 +9,21 @@ unobtrusively integrated into any application or framework that supports
 [Connect](http://www.senchalabs.org/connect/)-style middleware, including
 [Express](http://expressjs.com/).
 
+## Warning
+
+This is incomplete as of yet.
+At this stage this is simply a renamed copy of passport-yammer.
+I expect to get it into working state by Saturday 2013.03.02
+
+## TODO
+
+- implement and spec out reddit token endpoint interaction
+- rewrite example app
+- use travis.ci for testing, possibly with coverage check
+- ensure 100% coverage
+- publish
+- add me own name in that credits section
+
 ## Install
 
     $ npm install passport-reddit
