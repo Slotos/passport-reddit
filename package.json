@@ -1,34 +1,47 @@
 {
   "name": "passport-yammer",
-  "version": "0.1.2",
-  "description": "Yammer authentication strategy for Passport.",
-  "keywords": ["passport", "yammer", "auth", "authn", "authentication", "identity"],
+  "version": "0.1.0",
+  "description": "Reddit authentication strategy for Passport.",
+  "keywords": ["passport", "reddit", "auth", "authn", "authentication", "identity"],
   "repository": {
     "type": "git",
-    "url": "git://github.com/jaredhanson/passport-yammer.git"
+    "url": "git://github.com/slotos/passport-reddit.git"
   },
   "bugs": {
-    "url": "http://github.com/jaredhanson/passport-yammer/issues"
+    "url": "http://github.com/slotos/passport-reddit/issues"
   },
   "author": {
     "name": "Jared Hanson",
     "email": "jaredhanson@gmail.com",
     "url": "http://www.jaredhanson.net/"
   },
+  "contributors": [
+    {
+      "name": "Dmytro Soltys",
+      "email": "soap@slotos.net",
+      "url": "http://slotos.net/"
+    }
+  ],
   "licenses": [ {
     "type": "MIT",
-    "url": "http://www.opensource.org/licenses/MIT" 
+    "url": "http://www.opensource.org/licenses/MIT"
   } ],
-  "main": "./lib/passport-yammer",
+  "main": "./lib/passport-reddit",
   "dependencies": {
     "pkginfo": "0.2.x",
     "passport-oauth": "0.1.x"
   },
   "devDependencies": {
-    "vows": "0.6.x"
+    "mocha": "1.8.x",
+    "should": "1.2.x",
+    "sinon": "1.6.x",
+    "blanket": "1.x"
   },
   "scripts": {
-    "test": "NODE_PATH=lib node_modules/.bin/vows test/*-test.js"
+    "test": "NODE_PATH=lib node_modules/.bin/mocha --reporter spec",
+    "blanket": {
+      "pattern": "lib/passport-reddit"
+    }
   },
   "engines": { "node": ">= 0.4.0" }
 }
