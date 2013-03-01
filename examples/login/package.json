@@ -1,10 +1,10 @@
 {
-  "name": "passport-yammer-examples-login",
+  "name": "passport-reddit-examples-login",
   "version": "0.0.0",
   "dependencies": {
     "express": ">= 0.0.0",
     "ejs": ">= 0.0.0",
     "passport": ">= 0.0.0",
-    "passport-yammer": ">= 0.0.0"
+    "passport-reddit": ">= 0.0.0"
   }
 }
