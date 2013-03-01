@@ -1,5 +1,5 @@
 {
-  "name": "passport-yammer",
+  "name": "passport-reddit",
   "version": "0.1.0",
   "description": "Reddit authentication strategy for Passport.",
   "keywords": ["passport", "reddit", "auth", "authn", "authentication", "identity"],
