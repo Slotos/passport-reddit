@@ -29,6 +29,62 @@ describe('RedditStrategy', function(){
         strategy.name.should.equal('reddit');
     });
 
+    describe('token endpoint interaction', function(){
+        it('should use basic auth header', function(){
+            sinon.stub(strategy._oauth2, "_request");
+            strategy._oauth2.getOAuthAccessToken('code', {}, undefined);
+
+            (strategy._oauth2._request.firstCall.args[2].Authorization).should.exist;
+            strategy._oauth2._request.restore();
+        });
+
+        describe('on success', function(){
+            before(function(){
+                sinon.stub(strategy._oauth2, "_request", function(method, url, headers, post_body, access_token, callback){
+                    var data = JSON.stringify({
+                        access_token: "access_token",
+                        refresh_token: "refresh_token",
+                        something_random: "randomness"
+                    });
+
+                    callback(null, data, null);
+                });
+            });
+
+            after(function(){
+                strategy._oauth2._request.restore();
+            });
+
+            it('should pass the data back', function(done){
+                strategy._oauth2.getOAuthAccessToken('code', {}, function(err, accessToken, refreshToken, params){
+                    should.not.exist(err);
+                    accessToken.should.equal('access_token');
+                    refreshToken.should.equal('refresh_token');
+                    done();
+                });
+            });
+        });
+
+        describe('on error', function(){
+            before(function(){
+                sinon.stub(strategy._oauth2, "_request", function(method, url, headers, post_body, access_token, callback){
+                    callback("something bad has happened");
+                });
+            });
+
+            after(function(){
+                strategy._oauth2._request.restore();
+            });
+
+            it('should pass callback an error', function(done){
+                strategy._oauth2.getOAuthAccessToken('code', {}, function(err){
+                    err.should.equal("something bad has happened");
+                    done();
+                });
+            });
+        });
+    });
+
     describe('when told to load user profile', function(){
         describe('on success', function(){
             before(function(){
@@ -36,7 +92,8 @@ describe('RedditStrategy', function(){
                     var body = JSON.stringify({
                         "name": "redditor",
                         "link_karma": 100,
-                        "comment_karma": 900
+                        "comment_karma": 900,
+                        "id": "woohoo"
                     });
 
                     callback(null, body, undefined);
@@ -60,6 +117,7 @@ describe('RedditStrategy', function(){
                     profile.name.should.equal('redditor');
                     profile.link_karma.should.equal(100);
                     profile.comment_karma.should.equal(900);
+                    profile.id.should.equal("woohoo");
                     done();
                 });
             });
