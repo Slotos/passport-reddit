@@ -73,4 +73,5 @@ For a complete, working example, refer to the [login example](https://github.com
 [The MIT License](http://opensource.org/licenses/MIT)
 
 Original work Copyright (c) 2012-2013 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
+
 Modified work Copyright (c) 2013 Dmytro Soltys <[http://slotos.net/](http://slotos.net/)>
