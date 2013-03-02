@@ -9,21 +9,6 @@ unobtrusively integrated into any application or framework that supports
 [Connect](http://www.senchalabs.org/connect/)-style middleware, including
 [Express](http://expressjs.com/).
 
-## Warning
-
-This is incomplete as of yet.
-At this stage this is simply a renamed copy of passport-yammer.
-I expect to get it into working state by Saturday 2013.03.02
-
-## TODO
-
-- implement and spec out reddit token endpoint interaction
-- rewrite example app
-- use travis.ci for testing, possibly with coverage check
-- ensure 100% coverage
-- publish
-- add me own name in that credits section
-
 ## Install
 
     $ npm install passport-reddit
@@ -77,14 +62,17 @@ For a complete, working example, refer to the [login example](https://github.com
     $ make test
 
 <!---
-[![Build Status](https://secure.travis-ci.org/jaredhanson/passport-yammer.png)](http://travis-ci.org/jaredhanson/passport-yammer)
+[![Build Status](https://secure.travis-ci.org/slotos/passport-reddit.png)](http://travis-ci.org/slotos/passport-reddit)
 -->
+
 ## Credits
 
   - [Jared Hanson](http://github.com/jaredhanson)
+  - [Dmytro Soltys](http://github.com/slotos)
 
 ## License
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2012-2013 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
+Original work Copyright (c) 2012-2013 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
+Modified work Copyright (c) 2013 Dmytro Soltys <[http://slotos.net/](http://slotos.net/)>
