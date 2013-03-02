@@ -29,6 +29,7 @@ coverage:
 # ==============================================================================
 
 JSHINT = jshint
+SOURCES = lib/passport-reddit
 
 hint: lint
 lint:
