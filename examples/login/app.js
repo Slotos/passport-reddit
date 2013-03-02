@@ -3,7 +3,7 @@ var express = require('express')
   , util = require('util')
   , RedditStrategy = require('passport-reddit').Strategy;
 
-var REDDIT_CONSUMER_KEY = "--insert-reddit-consumer-key-here--"
+var REDDIT_CONSUMER_KEY = "--insert-reddit-consumer-key-here--";
 var REDDIT_CONSUMER_SECRET = "--insert-reddit-consumer-secret-here--";
 
 
@@ -118,5 +118,5 @@ app.listen(3000);
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/login');
 }
