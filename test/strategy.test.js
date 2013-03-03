@@ -30,12 +30,29 @@ describe('RedditStrategy', function(){
     });
 
     describe('token endpoint interaction', function(){
-        it('should use basic auth header', function(){
-            sinon.stub(strategy._oauth2, "_request");
-            strategy._oauth2.getOAuthAccessToken('code', {}, undefined);
+        describe('authorization', function(){
+            before(function(){
+                sinon.stub(strategy._oauth2, "_request");
+            });
 
-            (strategy._oauth2._request.firstCall.args[2].Authorization).should.exist;
-            strategy._oauth2._request.restore();
+            after(function(){
+                strategy._oauth2._request.restore();
+            });
+
+            it('should use basic auth header', function(){
+                strategy._oauth2.getOAuthAccessToken('code', {}, undefined);
+
+                should.exist(strategy._oauth2._request.firstCall.args[2].Authorization);
+            });
+
+            it('should authenticate using client id and client secret pair', function(){
+                strategy._oauth2.getOAuthAccessToken('code', {}, undefined);
+
+                var authHeader = strategy._oauth2._request.firstCall.args[2].Authorization;
+                var modelHeader = "Basic " + Buffer("" + strategy._oauth2._clientId + ":" + strategy._oauth2._clientSecret).toString('base64');
+
+                authHeader.should.equal(modelHeader);
+            });
         });
 
         describe('on success', function(){
