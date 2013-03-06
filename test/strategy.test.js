@@ -29,6 +29,50 @@ describe('RedditStrategy', function(){
         strategy.name.should.equal('reddit');
     });
 
+    it('should have default state', function(){
+        strategy._state.should.equal('no_state');
+    });
+
+    it('should request use of auth header for GET requests', function(){
+        strategy._useAuthorizationHeaderForGET.should.equal(true);
+    });
+
+    describe('scope', function(){
+        it('should provide default', function(){
+            strategy._scope.should.equal('identity');
+        });
+
+        describe('stringified option', function(){
+            it('should enforce comma separated identity scope presence', function(){
+                new RedditStrategy({
+                    clientID: 'ABC123',
+                    clientSecret: 'secret',
+                    scope: 'one,two,,,five'
+                })._scope.should.match(/^identity,/);
+            });
+        });
+
+        describe('array option', function(){
+            var strategy;
+
+            before(function(){
+                strategy = new RedditStrategy({
+                    clientID: 'ABC123',
+                    clientSecret: 'secret',
+                    scope: ['one','two','five']
+                });
+            });
+
+            it('should enforce identity scope presence', function(){
+               strategy._scope.should.include('identity');
+            });
+
+            it('should enforce comma separator', function(){
+                strategy._scopeSeparator.should.equal(',');
+            });
+        });
+    });
+
     describe('token endpoint interaction', function(){
         describe('authorization', function(){
             before(function(){
