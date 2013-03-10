@@ -22,17 +22,19 @@ account and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which
 accepts these credentials and calls `done` providing a user, as well as
 `options` specifying a client ID, client secret, and callback URL.
 
-    passport.use(new RedditStrategy({
-        clientID: REDDIT_CONSUMER_KEY,
-        clientSecret: REDDIT_CONSUMER_SECRET,
-        callbackURL: "http://127.0.0.1:3000/auth/reddit/callback"
-      },
-      function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ redditId: profile.id }, function (err, user) {
-          return done(err, user);
-        });
-      }
-    ));
+```javascript
+passport.use(new RedditStrategy({
+    clientID: REDDIT_CONSUMER_KEY,
+    clientSecret: REDDIT_CONSUMER_SECRET,
+    callbackURL: "http://127.0.0.1:3000/auth/reddit/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ redditId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+```
 
 #### Authenticate Requests
 
@@ -42,15 +44,34 @@ authenticate requests.
 For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
-    app.get('/auth/reddit',
-      passport.authenticate('reddit'));
+```javascript
+app.get('/auth/reddit', function(req, res, next){
+  req.session.state = crypto.randomBytes(32).toString('hex');
+  passport.authenticate('reddit', {
+    state: req.session.state,
+  })(req, res, next);
+});
 
-    app.get('/auth/reddit/callback',
-      passport.authenticate('reddit', { failureRedirect: '/login' }),
-      function(req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-      });
+app.get('/auth/reddit/callback', function(req, res, next){
+  // Check for origin via state token
+  if (req.query.state == req.session.state){
+    passport.authenticate('reddit', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    })(req, res, next);
+  }
+  else {
+    next( new Error 403 );
+  }
+});
+```
+
+Notice the state option use.
+Reddit requires state, otherwise erring out.
+I've decided to opt out of providing default state, since it kills the whole purpose of the flag.
+If you don't want to use it, provide any string and don't check for it on user return.
+If you think this is a stupid requirement, fill an issue with reddit.
+Once they remove it, this middleware will simply work.
 
 ## Examples
 

@@ -29,12 +29,8 @@ describe('RedditStrategy', function(){
         strategy.name.should.equal('reddit');
     });
 
-    it('should have default state', function(){
-        strategy._state.should.equal('no_state');
-    });
-
     it('should request use of auth header for GET requests', function(){
-        strategy._useAuthorizationHeaderForGET.should.equal(true);
+        strategy._oauth2._useAuthorizationHeaderForGET.should.equal(true);
     });
 
     describe('scope', function(){
