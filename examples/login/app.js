@@ -1,6 +1,7 @@
 var express = require('express')
   , passport = require('passport')
   , util = require('util')
+  , crypto = require('crypto')
   , RedditStrategy = require('passport-reddit').Strategy;
 
 var REDDIT_CONSUMER_KEY = "--insert-reddit-consumer-key-here--";
@@ -85,23 +86,32 @@ app.get('/login', function(req, res){
 //   request.  The first step in Reddit authentication will involve
 //   redirecting the user to reddit.com.  After authorization, Reddit
 //   will redirect the user back to this application at /auth/reddit/callback
-app.get('/auth/reddit',
-  passport.authenticate('reddit'),
-  function(req, res){
-    // The request will be redirected to Reddit for authentication, so this
-    // function will not be called.
-  });
+//
+//   Note that the 'state' option is a Reddit-specific requirement.
+app.get('/auth/reddit', function(req, res, next){
+  req.session.state = crypto.randomBytes(32).toString('hex');
+  passport.authenticate('reddit', {
+    state: req.session.state,
+  })(req, res, next);
+});
 
 // GET /auth/reddit/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-app.get('/auth/reddit/callback',
-  passport.authenticate('reddit', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+app.get('/auth/reddit/callback', function(req, res, next){
+  // Check for origin via state token
+  if (req.query.state == req.session.state){
+    passport.authenticate('reddit', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    })(req, res, next);
+  }
+  else {
+    next( new Error(403) );
+  }
+});
 
 app.get('/logout', function(req, res){
   req.logout();
