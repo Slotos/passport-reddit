@@ -69,6 +69,22 @@ describe('RedditStrategy', function(){
         });
     });
 
+    describe('authorizationParams', function(){
+        describe('duration', function(){
+            var duration = 'to know recursion one must know recursion';
+            var options = {};
+
+            it('should not provide explicit default', function(){
+                should.not.exist(strategy.authorizationParams(options).duration);
+            });
+
+            it('should accept duration through strategy options', function(){
+                options.duration = duration;
+                strategy.authorizationParams(options).duration.should.equal(duration);
+            });
+        });
+    })
+
     describe('token endpoint interaction', function(){
         describe('authorization', function(){
             before(function(){
