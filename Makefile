@@ -24,7 +24,10 @@ coverage:
 		--require blanket \
 		--reporter html-cov > ./test/coverage.html
 
+# I need both tests and coverage report here
+# Thus two commands.
 coveralls:
+	$(MAKE) test
 	@NODE_ENV=test NODE_PATH=lib PASSPORT_REDDIT_COVERAGE=1 ./node_modules/.bin/mocha \
 		--require blanket \
 		--reporter mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js

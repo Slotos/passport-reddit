@@ -45,7 +45,7 @@
     "mocha-lcov-reporter": "0.x"
   },
   "scripts": {
-    "test": "make test",
+    "test": "make coveralls",
     "blanket": {
       "pattern": "lib/passport-reddit"
     }
