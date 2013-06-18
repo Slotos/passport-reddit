@@ -49,6 +49,7 @@ app.get('/auth/reddit', function(req, res, next){
   req.session.state = crypto.randomBytes(32).toString('hex');
   passport.authenticate('reddit', {
     state: req.session.state,
+    duration: 'permanent',
   })(req, res, next);
 });
 
@@ -66,12 +67,16 @@ app.get('/auth/reddit/callback', function(req, res, next){
 });
 ```
 
-Notice the state option use.
+Notice the `state` option use
 Reddit requires state, otherwise erring out.
 I've decided to opt out of providing default state, since it kills the whole purpose of the flag.
 If you don't want to use it, provide any string and don't check for it on user return.
 If you think this is a stupid requirement, fill an issue with reddit.
 Once they remove it, this middleware will simply work.
+
+Also included is the optional `duration` parameter, to request a slightly longer authorization.
+Defaults to `temporary` (1 hour).
+Defined in the official [Reddit OAuth spec](https://github.com/reddit/reddit/wiki/OAuth2#authorization-parameters)
 
 ## Examples
 
@@ -88,6 +93,7 @@ For a complete, working example, refer to the [login example](https://github.com
 
   - [Jared Hanson](http://github.com/jaredhanson)
   - [Dmytro Soltys](http://github.com/slotos)
+  - [Brian Partridge](http://github.com/bpartridge83)
 
 ## License
 
@@ -96,3 +102,5 @@ For a complete, working example, refer to the [login example](https://github.com
 Original work Copyright (c) 2012-2013 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
 
 Modified work Copyright (c) 2013 Dmytro Soltys <[http://slotos.net/](http://slotos.net/)>
+
+Modified work Copyright (c) 2013 Brian Partridge <[http://brianpartridge.com/](http://brianpartridge.com/)>
