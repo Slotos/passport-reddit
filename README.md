@@ -1,4 +1,4 @@
-# Passport-Reddit
+# Passport-Reddit [![Build Status](https://secure.travis-ci.org/Slotos/passport-reddit.png)](http://travis-ci.org/Slotos/passport-reddit) [![Coverage Status](https://coveralls.io/repos/Slotos/passport-reddit/badge.png)](https://coveralls.io/r/Slotos/passport-reddit)
 
 [Passport](https://github.com/jaredhanson/passport) strategy for authenticating
 with [Reddit](http://reddit.com/) using the OAuth 2.0 API.
@@ -86,8 +86,6 @@ For a complete, working example, refer to the [login example](https://github.com
 
     $ npm install --dev
     $ make test
-
-[![Build Status](https://secure.travis-ci.org/Slotos/passport-reddit.png)](http://travis-ci.org/Slotos/passport-reddit)
 
 ## Credits
 

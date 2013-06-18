@@ -40,10 +40,12 @@
     "mocha": "1.8.x",
     "should": "1.2.x",
     "sinon": "1.6.x",
-    "blanket": "1.x"
+    "blanket": "1.x",
+    "coveralls": "2.x",
+    "mocha-lcov-reporter": "0.x"
   },
   "scripts": {
-    "test": "NODE_PATH=lib node_modules/.bin/mocha --reporter spec",
+    "test": "make test",
     "blanket": {
       "pattern": "lib/passport-reddit"
     }

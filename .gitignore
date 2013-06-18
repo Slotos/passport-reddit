@@ -7,3 +7,4 @@ npm-debug.log
 
 # Development
 test/coverage.html
+.coveralls.yml
