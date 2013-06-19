@@ -1,6 +1,5 @@
 var should = require('should');
 var sinon = require('sinon');
-var reddit = require('passport-reddit');
 var RedditStrategy = require('passport-reddit/strategy');
 
 describe('RedditStrategy', function(){
@@ -98,6 +97,9 @@ describe('RedditStrategy', function(){
             it('should use basic auth header', function(){
                 strategy._oauth2.getOAuthAccessToken('code', {}, undefined);
 
+                // checking oauth2._request arguments
+                // third argument is headers hash
+                // https://github.com/ciaranj/node-oauth/blob/301ebab90cde4c36ad1ac0bc7d814003f4e98432/lib/oauth2.js#L52
                 should.exist(strategy._oauth2._request.firstCall.args[2].Authorization);
             });
 

@@ -8,15 +8,15 @@ test:
 	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha \
 		--reporter $(REPORTER)
 
-test-w:
-	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha \
-		--reporter min \
-		--watch
+integration:
+	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha test/integration \
+		--reporter $(REPORTER)
 
-nyan:
-	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha \
-		--reporter nyan \
-		--growl \
+# Include both regular and integration tests into watch test
+test-w:
+	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha test test/integration \
+		--reporter min \
+		--grown \
 		--watch
 
 coverage:
@@ -25,9 +25,9 @@ coverage:
 		--reporter html-cov > ./test/coverage.html
 
 # I need both tests and coverage report here
-# Thus two commands.
 coveralls:
 	$(MAKE) test
+	$(MAKE) integration
 	@NODE_ENV=test NODE_PATH=lib PASSPORT_REDDIT_COVERAGE=1 ./node_modules/.bin/mocha \
 		--require blanket \
 		--reporter mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js

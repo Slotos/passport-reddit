@@ -37,12 +37,17 @@
     "passport-oauth": "0.1.x"
   },
   "devDependencies": {
-    "mocha": "1.8.x",
-    "should": "1.2.x",
-    "sinon": "1.6.x",
-    "blanket": "1.x",
-    "coveralls": "2.x",
-    "mocha-lcov-reporter": "0.x"
+    "mocha": "*",
+    "should": "*",
+    "sinon": "*",
+    "blanket": "*",
+    "coveralls": "*",
+    "mocha-lcov-reporter": "*",
+    "nock": "*",
+    "passport": "*",
+    "supertest": "*",
+    "crypto": "*",
+    "express": "*"
   },
   "scripts": {
     "test": "make coveralls",
