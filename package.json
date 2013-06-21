@@ -52,7 +52,7 @@
   "scripts": {
     "test": "make coveralls",
     "blanket": {
-      "pattern": "lib/passport-reddit"
+      "pattern": "//^(?!.*node_modules.*$).*lib\//"
     }
   },
   "engines": { "node": ">= 0.8.0" }
