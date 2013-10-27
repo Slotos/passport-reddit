@@ -8,6 +8,10 @@ test:
 	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha \
 		--reporter $(REPORTER)
 
+test-debug:
+	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha debug \
+		--reporter $(REPORTER)
+
 integration:
 	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha test/integration \
 		--reporter $(REPORTER)
