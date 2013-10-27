@@ -49,7 +49,7 @@ passport.use(new RedditStrategy({
 
 
 
-var app = express.createServer();
+var app = express();
 
 // configure Express
 app.configure(function() {
