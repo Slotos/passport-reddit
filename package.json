@@ -1,6 +1,6 @@
 {
   "name": "passport-reddit",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Reddit authentication strategy for Passport.",
   "keywords": ["passport", "reddit", "auth", "authn", "authentication", "identity"],
   "repository": {
