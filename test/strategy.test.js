@@ -19,10 +19,13 @@ describe('RedditStrategy', function(){
         });
     };
 
-    var strategy = new RedditStrategy({
+    var strategy = new RedditStrategy(
+      {
         clientID: 'ABC123',
         clientSecret: 'secret'
-    });
+      },
+      function(){}
+    );
 
     it('should be named reddit', function(){
         strategy.name.should.equal('reddit');
@@ -39,11 +42,14 @@ describe('RedditStrategy', function(){
 
         describe('stringified option', function(){
             it('should enforce comma separated identity scope presence', function(){
-                new RedditStrategy({
+                new RedditStrategy(
+                  {
                     clientID: 'ABC123',
                     clientSecret: 'secret',
                     scope: 'one,two,,,five'
-                })._scope.should.match(/^identity,/);
+                  },
+                  function(){}
+                )._scope.should.match(/^identity,/);
             });
         });
 
@@ -51,11 +57,14 @@ describe('RedditStrategy', function(){
             var strategy;
 
             before(function(){
-                strategy = new RedditStrategy({
+                strategy = new RedditStrategy(
+                  {
                     clientID: 'ABC123',
                     clientSecret: 'secret',
                     scope: ['one','two','five']
-                });
+                  },
+                  function(){}
+                );
             });
 
             it('should enforce identity scope presence', function(){
@@ -199,14 +208,14 @@ describe('RedditStrategy', function(){
 
             it('should set raw property', function(done){
                 strategy.userProfile('something', function(err, profile){
-                    profile._raw.should.be.a('string');
+                    profile._raw.should.have.type('string');
                     done();
                 });
             });
 
             it('should set json property', function(done){
                 strategy.userProfile('something', function(err, profile){
-                    profile._json.should.be.a('object');
+                    profile._json.should.have.type('object');
                     done();
                 });
             });
