@@ -62,7 +62,7 @@ app.get('/auth/reddit/callback', function(req, res, next){
     })(req, res, next);
   }
   else {
-    next( new Error 403 );
+    next( new Error(403) );
   }
 });
 ```
