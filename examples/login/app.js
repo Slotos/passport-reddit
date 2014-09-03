@@ -1,7 +1,9 @@
 var express = require('express')
+  , session = require('express-session')
+  , expressLayouts = require('express-ejs-layouts')
+  , logger = require('morgan')
   , passport = require('passport')
   , util = require('util')
-  , crypto = require('crypto')
   , RedditStrategy = require('passport-reddit').Strategy;
 
 var REDDIT_CONSUMER_KEY = "--insert-reddit-consumer-key-here--";
@@ -31,7 +33,8 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new RedditStrategy({
     clientID: REDDIT_CONSUMER_KEY,
     clientSecret: REDDIT_CONSUMER_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/reddit/callback"
+    callbackURL: "http://127.0.0.1:3000/auth/reddit/callback",
+    state: true
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -52,21 +55,19 @@ passport.use(new RedditStrategy({
 var app = express();
 
 // configure Express
-app.configure(function() {
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.use(express.logger());
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.session({ secret: 'keyboard cat' }));
-  // Initialize Passport!  Also use passport.session() middleware, to support
-  // persistent login sessions (recommended).
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
-});
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.use(logger('dev'));
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: 'keyboard cat'
+}));
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(expressLayouts);
 
 
 app.get('/', function(req, res){
@@ -88,30 +89,17 @@ app.get('/login', function(req, res){
 //   will redirect the user back to this application at /auth/reddit/callback
 //
 //   Note that the 'state' option is a Reddit-specific requirement.
-app.get('/auth/reddit', function(req, res, next){
-  req.session.state = crypto.randomBytes(32).toString('hex');
-  passport.authenticate('reddit', {
-    state: req.session.state,
-  })(req, res, next);
-});
+app.get('/auth/reddit', passport.authenticate('reddit'));
 
 // GET /auth/reddit/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-app.get('/auth/reddit/callback', function(req, res, next){
-  // Check for origin via state token
-  if (req.query.state == req.session.state){
-    passport.authenticate('reddit', {
-      successRedirect: '/',
-      failureRedirect: '/login'
-    })(req, res, next);
-  }
-  else {
-    next( new Error(403) );
-  }
-});
+app.get('/auth/reddit/callback', passport.authenticate('reddit', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+}));
 
 app.get('/logout', function(req, res){
   req.logout();
