@@ -50,7 +50,9 @@
     "express": "3.x"
   },
   "scripts": {
-    "test": "make coveralls",
+    "test": "make coveralls"
+  },
+  "config": {
     "blanket": {
       "pattern": "//^(?!.*node_modules.*$).*lib\//"
     }
