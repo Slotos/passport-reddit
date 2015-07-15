@@ -28,16 +28,16 @@ describe('RedditStrategy', function(){
     );
 
     it('should be named reddit', function(){
-        strategy.name.should.equal('reddit');
+        strategy.name.should.be.eql('reddit');
     });
 
     it('should request use of auth header for GET requests', function(){
-        strategy._oauth2._useAuthorizationHeaderForGET.should.equal(true);
+        strategy._oauth2._useAuthorizationHeaderForGET.should.be.eql(true);
     });
 
     describe('scope', function(){
         it('should provide default', function(){
-            strategy._scope.should.equal('identity');
+            strategy._scope.should.be.eql('identity');
         });
 
         describe('stringified option', function(){
@@ -68,11 +68,11 @@ describe('RedditStrategy', function(){
             });
 
             it('should enforce identity scope presence', function(){
-               strategy._scope.should.include('identity');
+               strategy._scope.should.containEql('identity');
             });
 
             it('should enforce comma separator', function(){
-                strategy._scopeSeparator.should.equal(',');
+                strategy._scopeSeparator.should.be.eql(',');
             });
         });
     });
@@ -88,7 +88,7 @@ describe('RedditStrategy', function(){
 
             it('should accept duration through strategy options', function(){
                 options.duration = duration;
-                strategy.authorizationParams(options).duration.should.equal(duration);
+                strategy.authorizationParams(options).duration.should.be.eql(duration);
             });
         });
     })
@@ -118,7 +118,7 @@ describe('RedditStrategy', function(){
                 var authHeader = strategy._oauth2._request.firstCall.args[2].Authorization;
                 var modelHeader = "Basic " + Buffer("" + strategy._oauth2._clientId + ":" + strategy._oauth2._clientSecret).toString('base64');
 
-                authHeader.should.equal(modelHeader);
+                authHeader.should.be.eql(modelHeader);
             });
         });
 
@@ -142,8 +142,8 @@ describe('RedditStrategy', function(){
             it('should pass the data back', function(done){
                 strategy._oauth2.getOAuthAccessToken('code', {}, function(err, accessToken, refreshToken, params){
                     should.not.exist(err);
-                    accessToken.should.equal('access_token');
-                    refreshToken.should.equal('refresh_token');
+                    accessToken.should.be.eql('access_token');
+                    refreshToken.should.be.eql('refresh_token');
                     done();
                 });
             });
@@ -162,7 +162,7 @@ describe('RedditStrategy', function(){
 
             it('should pass callback an error', function(done){
                 strategy._oauth2.getOAuthAccessToken('code', {}, function(err){
-                    err.should.equal("something bad has happened");
+                    err.should.be.eql("something bad has happened");
                     done();
                 });
             });
@@ -197,11 +197,11 @@ describe('RedditStrategy', function(){
 
             it('should load profile', function(done){
                 strategy.userProfile('something', function(err, profile){
-                    profile.provider.should.equal('reddit');
-                    profile.name.should.equal('redditor');
-                    profile.link_karma.should.equal(100);
-                    profile.comment_karma.should.equal(900);
-                    profile.id.should.equal("woohoo");
+                    profile.provider.should.be.eql('reddit');
+                    profile.name.should.be.eql('redditor');
+                    profile.link_karma.should.be.eql(100);
+                    profile.comment_karma.should.be.eql(900);
+                    profile.id.should.be.eql("woohoo");
                     done();
                 });
             });
@@ -252,7 +252,7 @@ describe('RedditStrategy', function(){
 
             it('should wrap error in InternalOAuthError', function(done){
                 strategy.userProfile('something', function(err, profile){
-                    err.constructor.name.should.equal('InternalOAuthError');
+                    err.constructor.name.should.be.eql('InternalOAuthError');
                     done();
                 });
             });
