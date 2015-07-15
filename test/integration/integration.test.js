@@ -159,6 +159,7 @@ describe('integration tests', function(){
       it('should not be present by default', function(done){
         request(app)
           .get('/auth/reddit')
+          .expect(302)
           .end(function(err, res){
             if (err) done(err);
             else {
