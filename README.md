@@ -67,12 +67,10 @@ app.get('/auth/reddit/callback', function(req, res, next){
 });
 ```
 
-Notice the `state` option use
+##### `state` option use
 Reddit requires state, otherwise erring out.
 I've decided to opt out of providing default state, since it kills the whole purpose of the flag.
 If you don't want to use it, provide any string and don't check for it on user return.
-If you think this is a stupid requirement, fill an issue with reddit.
-Once they remove it, this middleware will simply work.
 
 Also included is the optional `duration` parameter, to request a slightly longer authorization.
 Defaults to `temporary` (1 hour).
