@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "crypto": ">= 0.0.0",
-    "express": ">= 0.0.0",
+    "express": "3.0.0",
     "ejs": ">= 0.0.0",
     "passport": ">= 0.0.0",
     "passport-reddit": ">= 0.0.0"
