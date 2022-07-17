@@ -95,12 +95,8 @@ app.get('/login', function(req, res) {
 //   request.  The first step in Reddit authentication will involve
 //   redirecting the user to reddit.com.  After authorization, Reddit
 //   will redirect the user back to this application at /auth/reddit/callback
-//
-//   Note that the 'state' option is a Reddit-specific requirement.
 app.get('/auth/reddit', function(req, res, next) {
-  req.session.state = randomBytes(32).toString('hex')
   passport.authenticate('reddit', {
-    state: req.session.state,
     duration: 'permanent'
   })(req, res, next)
 })
@@ -111,16 +107,10 @@ app.get('/auth/reddit', function(req, res, next) {
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/reddit/callback', function(req, res, next) {
-  // Check for origin via state token
-  if (req.query.state == req.session.state) {
-    passport.authenticate('reddit', {
-      successRedirect: '/',
-      failureRedirect: '/login'
-    })(req, res, next)
-  }
-  else {
-    next(new Error(403))
-  }
+  passport.authenticate('reddit', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  })(req, res, next)
 })
 
 app.get('/logout', function(req, res) {
