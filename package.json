@@ -1,8 +1,16 @@
 {
   "name": "passport-reddit",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "description": "Reddit authentication strategy for Passport.",
-  "keywords": ["passport", "reddit", "auth", "authn", "authentication", "identity"],
+  "type": "module",
+  "keywords": [
+    "passport",
+    "reddit",
+    "auth",
+    "authn",
+    "authentication",
+    "identity"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/slotos/passport-reddit.git"
@@ -27,35 +35,43 @@
       "url": "http://brianpartridge.com/"
     }
   ],
-  "licenses": [ {
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/MIT"
-  } ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
   "main": "./lib/passport-reddit",
   "dependencies": {
-    "pkginfo": "0.3.x",
-    "passport-oauth2": "^1.x"
+    "passport-oauth2": "^1.6"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "*",
-    "sinon": "*",
     "blanket": "*",
+    "body-parser": "^1.20.0",
+    "c8": "^7.11.3",
+    "chai": "*",
+    "codecov": "^3.8.3",
+    "cookie-parser": "^1.4.6",
     "coveralls": "*",
-    "mocha-lcov-reporter": "*",
+    "eslint": "^8.20.0",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "method-override": "^3.x",
+    "mocha": "*",
     "nock": "*",
     "passport": "*",
-    "supertest": "*",
-    "crypto": "*",
-    "express": "3.x"
+    "sinon": "*",
+    "supertest": "*"
   },
   "scripts": {
-    "test": "make coveralls"
+    "test": "c8 mocha test",
+    "test-debug": "mocha --inspect-brk test",
+    "test-w": "mocha --watch --parallel --reporter=min --watch-files='lib/**/*.js,test/**/*.js' test test/integration",
+    "integration": "mocha test/integration",
+    "coverage": "c8 report --reporter=text-lcov |codecov --pipe",
+    "lint": "eslint lib"
   },
-  "config": {
-    "blanket": {
-      "pattern": "//^(?!.*node_modules.*$).*lib\//"
-    }
-  },
-  "engines": { "node": ">= 0.8.0" }
+  "engines": {
+    "node": ">= v14.15.0"
+  }
 }

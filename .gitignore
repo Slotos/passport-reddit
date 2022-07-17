@@ -4,7 +4,10 @@
 # Node.js
 node_modules/*
 npm-debug.log
+examples/login/node_modules/*
+examples/login/package-lock.json
 
 # Development
+coverage/
 test/coverage.html
 .coveralls.yml

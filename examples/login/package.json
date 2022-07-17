@@ -2,10 +2,14 @@
   "name": "passport-reddit-examples-login",
   "version": "0.0.0",
   "dependencies": {
-    "crypto": ">= 0.0.0",
-    "express": "3.0.0",
+    "express": "^4.18.1",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "method-override": "^3.x",
+    "express-session": "^1.17.3",
+    "morgan": "^1.10.0",
     "ejs": ">= 0.0.0",
     "passport": ">= 0.0.0",
-    "passport-reddit": ">= 0.0.0"
+    "passport-reddit": "file:../../"
   }
 }

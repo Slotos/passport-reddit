@@ -1,10 +1,10 @@
-require('should');
-var reddit = require('passport-reddit');
+import { expect } from 'chai'
+import { version } from '../lib/passport-reddit/index.js'
 
-describe('passport-reddit', function(){
-  describe('module', function(){
-    it('should report a version', function(){
-      reddit.version.should.have.type('string');
-    });
-  });
-});
+describe('passport-reddit', function() {
+  describe('module', function() {
+    it('reports a version', function() {
+      expect(version).to.be.a('string')
+    })
+  })
+})

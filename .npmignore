@@ -3,6 +3,7 @@ Makefile
 doc/
 examples/
 test/
+coverage/
 
 # Mac OS X
 .DS_Store

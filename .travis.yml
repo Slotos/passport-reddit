@@ -1,4 +1,12 @@
+dist: focal
 language: "node_js"
 node_js:
-  - "0.8"
-  - "0.10"
+  - 18
+  - 17
+  - 16
+  - 15
+  - 14
+after_success: npm run coverage
+branches:
+  only:
+    - main
