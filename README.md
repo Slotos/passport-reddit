@@ -46,34 +46,24 @@ application:
 
 ```javascript
 app.get('/auth/reddit', function(req, res, next){
-  req.session.state = crypto.randomBytes(32).toString('hex');
   passport.authenticate('reddit', {
-    state: req.session.state,
     duration: 'permanent',
   })(req, res, next);
 });
 
 app.get('/auth/reddit/callback', function(req, res, next){
-  // Check for origin via state token
-  if (req.query.state == req.session.state){
-    passport.authenticate('reddit', {
-      successRedirect: '/',
-      failureRedirect: '/login'
-    })(req, res, next);
-  }
-  else {
-    next( new Error(403) );
-  }
+  passport.authenticate('reddit', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  })(req, res, next);
 });
 ```
 
-##### `state` option use
-Reddit requires state, otherwise erring out.
-I've decided to opt out of providing default state, since it kills the whole purpose of the flag.
-If you don't want to use it, provide any string and don't check for it on user return.
+##### `duration` option on authenticate call
 
-Also included is the optional `duration` parameter, to request a slightly longer authorization.
-Defaults to `temporary` (1 hour).
+This strategy supports`duration` option on authenticate call, to request an indefinite authorization as opposed to 1 hour default.  
+Possible values: `permanent` and `temporary` (1 hour).
+
 Defined in the official [Reddit OAuth spec](https://github.com/reddit/reddit/wiki/OAuth2#authorization-parameters)
 
 ## Examples
