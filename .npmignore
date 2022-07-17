@@ -1,9 +1,9 @@
 README.md
-Makefile
 doc/
 examples/
 test/
 coverage/
+.eslintrc.json
 
 # Mac OS X
 .DS_Store
@@ -16,4 +16,5 @@ npm-debug.log
 # Git
 .git*
 
-.coveralls.yml
+# CI
+.travis.yml

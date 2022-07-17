@@ -1,6 +1,6 @@
 {
   "name": "passport-reddit",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Reddit authentication strategy for Passport.",
   "type": "module",
   "keywords": [
