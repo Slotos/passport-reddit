@@ -1,4 +1,4 @@
-# Passport-Reddit [![Build Status](https://secure.travis-ci.org/Slotos/passport-reddit.png)](http://travis-ci.org/Slotos/passport-reddit) [![Coverage Status](https://codecov.io/gh/Slotos/passport-reddit/branch/main/graph/badge.svg)](https://codecov.io/gh/Slotos/passport-reddit)
+# Passport-Reddit [![Build Status](https://app.travis-ci.com/Slotos/passport-reddit.svg)](https://app.travis-ci.com/Slotos/passport-reddit) [![Coverage Status](https://codecov.io/gh/Slotos/passport-reddit/branch/main/graph/badge.svg)](https://codecov.io/gh/Slotos/passport-reddit)
 
 [Passport](https://github.com/jaredhanson/passport) strategy for authenticating
 with [Reddit](http://reddit.com/) using the OAuth 2.0 API.
