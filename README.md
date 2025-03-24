@@ -1,3 +1,12 @@
+# Archival notice
+
+**I don't use reddit anymore, this library is complete, but first and foremost, it implements a wrong thing correctly!**
+
+[_OAuth2 is not an authentication protocol_](https://oauth.net/articles/authentication/) and you shoould not use this or any other library to _authenticate with reddit_.
+Authenticating via OAuth2 can lead to attack escalation or even novel attacks for one simple reason - there's no authenticity information being exchanged between your app and the only party that could provide it when it matters in the OAuth2 flow.
+
+**tl;dr** This library, just like many other OAuth2 login strategies, is a play-pretend and incomplete implementation of OpenID Connect written in the time when I didn't know better. _Do NOT authenticate with OAuth2!_
+
 # Passport-Reddit [![Build Status](https://app.travis-ci.com/Slotos/passport-reddit.svg)](https://app.travis-ci.com/Slotos/passport-reddit) [![Coverage Status](https://codecov.io/gh/Slotos/passport-reddit/branch/main/graph/badge.svg)](https://codecov.io/gh/Slotos/passport-reddit)
 
 [Passport](https://github.com/jaredhanson/passport) strategy for authenticating
